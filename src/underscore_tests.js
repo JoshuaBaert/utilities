@@ -112,36 +112,50 @@ var _ = {};
 	
 	// Return the results of applying an iterator to each element.
 	_.map = function (array, iterator) {
+		for (var i=0; i<array.length; i++) {
+			array[i] = iterator(array[i]);
+		}
+		return array;
 	};
 	
 	// Takes an array of objects and returns and array of the values of
 	// a certain property in it. E.g. take an array of people and return
 	// an array of just their ages
 	_.pluck = function (array, propertyName) {
+		var rtn = [];
+		for (var i=0; i<array.length; i++) {
+			rtn.push(array[i][propertyName])
+		}
+		return rtn;
 	};
 	
 	// Calls the method named by methodName on each value in the list.
 	_.invoke = function (list, methodName, args) {
+		
 	};
 	
 	// Reduces an array or object to a single value by repetitively calling
 	// iterator(previousValue, item) for each item. previousValue should be
 	// the return value of the previous iterator call.
 	_.reduce = function (collection, iterator, initialValue) {
+		
 	};
 	
 	// Determine if the array or object contains a given value (using `===`).
 	_.contains = function (collection, target) {
+		
 	};
 	
 	
 	// Determine whether all of the elements match a truth test.
 	_.every = function (collection, iterator) {
+		
 	};
 	
 	// Determine whether any of the elements pass a truth test. If no iterator is
 	// provided, provide a default one
 	_.some = function (collection, iterator) {
+		
 	};
 	
 	
@@ -155,11 +169,13 @@ var _ = {};
 	// Extend a given object with all the properties of the passed in
 	// object(s).
 	_.extend = function (obj) {
+		
 	};
 	
 	// Like extend, but doesn't ever overwrite a key that already
 	// exists in obj
 	_.defaults = function (obj) {
+		
 	};
 	
 	
@@ -171,6 +187,7 @@ var _ = {};
 	// Return a function that can be called at most one time. Subsequent calls
 	// should return the previously returned value.
 	_.once = function (func) {
+		
 	};
 	
 	// Memoize an expensive function by storing its results. You may assume
@@ -180,6 +197,7 @@ var _ = {};
 	// already computed the result for the given argument and return that value
 	// instead if possible.
 	_.memoize = function (func) {
+		
 	};
 	
 	// Delays a function for the given number of milliseconds, and then calls
@@ -189,12 +207,14 @@ var _ = {};
 	// parameter. For example _.delay(someFunction, 500, 'a', 'b') will
 	// call someFunction('a', 'b') after 500ms
 	_.delay = function (func, wait) {
+		
 	};
 	
 	
 	
 	// Shuffle an array.
 	_.shuffle = function (array) {
+		
 	};
 	
 	// Sort the object's values by a criterion produced by an iterator.
@@ -202,6 +222,7 @@ var _ = {};
 	// of that string. For example, _.sortBy(people, 'name') should sort
 	// an array of people by their name.
 	_.sortBy = function (collection, iterator) {
+		
 	};
 	
 	// Zip together two or more arrays with elements of the same index
@@ -210,21 +231,25 @@ var _ = {};
 	// Example:
 	// _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
 	_.zip = function () {
+		
 	};
 	
 	// Takes a multidimensional array and converts it to a one-dimensional array.
 	// The new array should contain all elements of the multidimensional array.
 	_.flatten = function (nestedArray, result) {
+		
 	};
 	
 	// Takes an arbitrary number of arrays and produces an array that contains
 	// every item shared between all the passed-in arrays.
 	_.intersection = function () {
+		
 	};
 	
 	// Take the difference between one array and a number of other arrays.
 	// Only the elements present in just the first array will remain.
 	_.difference = function (array) {
+		
 	};
 	
 }).call(this);
