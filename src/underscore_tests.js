@@ -78,15 +78,35 @@ var _ = {};
 	
 	// Return all elements of an array that pass a truth test ('iterator' function argument)
 	_.filter = function (collection, iterator) {
-		
+		var rtn = [];
+		for (var i in collection) {
+			if (iterator(collection[i])) {
+				rtn.push(collection[i]);
+			}
+		}
+		return rtn;
 	};
 	
 	// Return all elements of an array that don't pass a truth test (the 'iterator' function argument)
 	_.reject = function (collection, iterator) {
+		var rtn = [];
+		for (var i in collection) {
+			if (!iterator(collection[i])) {
+				rtn.push(collection[i]);
+			}
+		}
+		return rtn;
 	};
 	
 	// Produce a duplicate-free version of the array.
 	_.uniq = function (array) {
+		var rtn = [];
+		for (var i=0; i<array.length; i++) {
+			if (rtn.indexOf(array[i]) === -1) {
+				rtn.push(array[i]);
+			}
+		}
+		return rtn;
 	};
 	
 	
