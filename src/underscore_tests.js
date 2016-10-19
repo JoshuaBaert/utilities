@@ -130,12 +130,23 @@ var _ = {};
 	};
 	
 	// Calls the method named by methodName on each value in the list.
-	_.invoke = function (list, methodName, args) {/*
+	_.invoke = function (list, methodName, args) {
 		
-		for (var i=0; i<list.length; i++) {
-			list[0][methodName]();
+		
+		if (typeof methodName !== 'string') {
+			console.log(methodName);
+			methodName = methodName.toString().slice(9);
+			console.log(methodName);
+			
+			var index = methodName.indexOf('(');
+			methodName = methodName.slice(0,index);
+			console.log(methodName);
 		}
-	*/};
+		for (var i = 0; i < list.length; i++) {
+			list[i] = list[i][methodName]();
+		}
+		return list;
+	};
 	
 	// Reduces an array or object to a single value by repetitively calling
 	// iterator(previousValue, item) for each item. previousValue should be
@@ -154,13 +165,27 @@ var _ = {};
 	
 	// Determine if the array or object contains a given value (using `===`).
 	_.contains = function (collection, target) {
-		
+		for (var key in collection) {
+			if (target === collection[key]) {
+				return true;
+			}
+		}
+		return false;
 	};
 	
 	
 	// Determine whether all of the elements match a truth test.
 	_.every = function (collection, iterator) {
-		
+		var boo = true
+		if (typeof iterator === 'undefined') {
+			return boo;
+		}
+		for (var key in collection) {
+			if (!iterator(collection[key])) {
+				boo = false
+			}
+		}
+		return boo;
 	};
 	
 	// Determine whether any of the elements pass a truth test. If no iterator is

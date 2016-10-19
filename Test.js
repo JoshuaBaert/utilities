@@ -2,24 +2,31 @@
  * Created by Joshua Baert on 10/18/2016.
  */
 
-var sums = function (sum, num) {
-	return sum + num;
-};
+var list = [[5, 1, 7], [3, 2, 1]];
 
 var _ = {
 	
-	reduce: function (collection, iterator, initialValue) {
-		console.log (initialValue);
-		for (var i=0; i<collection.length; i++) {
-			initialValue = iterator(initialValue, collection[i]);
-			console.log (initialValue);
+	invoke : function (list, methodName, args) {
+		
+		
+		if (typeof methodName !== 'string') {
+			console.log(methodName);
+			methodName = methodName.toString().slice(9);
+			console.log(methodName);
+			
+			var index = methodName.indexOf('(');
+			methodName = methodName.slice(0,index);
+			console.log(methodName);
 		}
-		return initialValue
+		for (var i = 0; i < list.length; i++) {
+			list[i] = list[i][methodName]();
+		}
+		return list;
 	}
 	
 	
 	
 	
 };
-console.log(_.reduce([1, 2, 3], sums, 0));
+console.log(_.invoke(list, Array.prototype.sort));
 
