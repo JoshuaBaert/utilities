@@ -176,13 +176,18 @@ var _ = {};
 	
 	// Determine whether all of the elements match a truth test.
 	_.every = function (collection, iterator) {
-		var boo = true
+		var boo = true;
 		if (typeof iterator === 'undefined') {
-			return boo;
-		}
-		for (var key in collection) {
-			if (!iterator(collection[key])) {
-				boo = false
+			for (var key in collection) {
+				if (!collection[key]) {
+					boo = false;
+				}
+			}
+		} else {
+			for (var key in collection) {
+				if (!iterator(collection[key])) {
+					boo = false
+				}
 			}
 		}
 		return boo;
@@ -191,7 +196,21 @@ var _ = {};
 	// Determine whether any of the elements pass a truth test. If no iterator is
 	// provided, provide a default one
 	_.some = function (collection, iterator) {
-		
+		var boo = false;
+		if (typeof iterator === 'undefined') {
+			for (var key in collection) {
+				if (collection[key]) {
+					boo = true;
+				}
+			}
+		} else {
+			for (var key in collection) {
+				if (iterator(collection[key])) {
+					boo = true;
+				}
+			}
+		}
+		return boo;
 	};
 	
 	
