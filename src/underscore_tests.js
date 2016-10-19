@@ -224,13 +224,27 @@ var _ = {};
 	// Extend a given object with all the properties of the passed in
 	// object(s).
 	_.extend = function (obj) {
-		
+		var rtn = {};
+		for (var i=0; i<arguments.length; i++) {
+			for (var key in arguments[i]) {
+				rtn[key] = arguments[i][key];
+			}
+		}
+		return rtn;
 	};
 	
 	// Like extend, but doesn't ever overwrite a key that already
 	// exists in obj
 	_.defaults = function (obj) {
-		
+		var rtn = {};
+		for (var i=0; i<arguments.length; i++) {
+			for (var key in arguments[i]) {
+				if (!rtn.hasOwnProperty(key)){
+					rtn[key] = arguments[i][key];
+				}
+			}
+		}
+		return rtn;
 	};
 	
 	
@@ -242,7 +256,16 @@ var _ = {};
 	// Return a function that can be called at most one time. Subsequent calls
 	// should return the previously returned value.
 	_.once = function (func) {
+		var called = false;
+		var rtn = null;
 		
+		return function() {
+			if (!called) {
+				rtn = func();
+			}
+			called = true;
+			return rtn;
+		};
 	};
 	
 	// Memoize an expensive function by storing its results. You may assume
@@ -252,7 +275,16 @@ var _ = {};
 	// already computed the result for the given argument and return that value
 	// instead if possible.
 	_.memoize = function (func) {
+		var called = false;
+		var rtn = null;
 		
+		return function() {
+			if (!called) {
+				rtn = func();
+			}
+			called = true;
+			return rtn;
+		};
 	};
 	
 	// Delays a function for the given number of milliseconds, and then calls
