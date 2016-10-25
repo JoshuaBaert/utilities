@@ -2,31 +2,20 @@
  * Created by Joshua Baert on 10/18/2016.
  */
 
+/************ whoAreYou method **********/
 
-
-var _ = {
-	
-	some: function (collection, iterator) {
-		var boo = true;
-		if (typeof iterator === 'undefined') {
-			for (var key in collection) {
-				if (!collection[key]) {
-					boo = false;
-				}
-			}
-		} else {
-			for (var key in collection) {
-				if (!iterator(collection[key])) {
-					boo = false
-				}
-			}
-		}
-		return boo;
+var one = {
+	name: 'Ryan',
+	sayName: function () {
+		return 'Hello, my name is ' + this.name;
 	}
-		
-		
-		
-		
-	};
-console.log(_.some([true, true, true]));
+};
+var two = {
+	name: 'Dan'
+};
 
+var newSayName = one.sayName.bind(two);
+
+var helloMessage = newSayName();
+
+console.log(helloMessage);

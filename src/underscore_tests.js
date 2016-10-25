@@ -23,7 +23,7 @@ var _ = {};
 		if (typeof n === 'undefined') {
 			return array [0];
 		} else {
-			for (var i=0; i < n && i <array.length ; i++) {
+			for (var i = 0; i < n && i < array.length; i++) {
 				rtn.push(array[i]);
 			}
 			return rtn;
@@ -40,13 +40,13 @@ var _ = {};
 		if (typeof n === 'undefined') {
 			return array[array.length - 1];
 		} else {
-			for (var i = array.length - 1; i >= array.length-n && i >= 0; i--) {
+			for (var i = array.length - 1; i >= array.length - n && i >= 0; i--) {
 				rtn.unshift(array[i]);
 			}
 			return rtn;
 		}
-	
-};
+		
+	};
 	
 	// Call iterator(value, key, collection) for each element of collection.
 	// Accepts both arrays and objects.
@@ -54,11 +54,11 @@ var _ = {};
 		var rtn = [];
 		if (typeof collection === "object") {
 			for (var key in collection) {
-				iterator(collection[key],key,collection);
+				iterator(collection[key], key, collection);
 			}
 		} else if (typeof collection === "array") {
-			for (var i=0; i<collection.length; i++ ) {
-				iterator(collection[i],i,collection);
+			for (var i = 0; i < collection.length; i++) {
+				iterator(collection[i], i, collection);
 			}
 		} else {
 			return 'Was not an Object or Array!'
@@ -68,7 +68,7 @@ var _ = {};
 	// Returns the index at which value can be found in the array, or -1 if value
 	// is not present in the array.
 	_.indexOf = function (array, target) {
-		for (var i=0; i<array.length; i++) {
+		for (var i = 0; i < array.length; i++) {
 			if (target === array[i]) {
 				return i;
 			}
@@ -101,7 +101,7 @@ var _ = {};
 	// Produce a duplicate-free version of the array.
 	_.uniq = function (array) {
 		var rtn = [];
-		for (var i=0; i<array.length; i++) {
+		for (var i = 0; i < array.length; i++) {
 			if (rtn.indexOf(array[i]) === -1) {
 				rtn.push(array[i]);
 			}
@@ -112,7 +112,7 @@ var _ = {};
 	
 	// Return the results of applying an iterator to each element.
 	_.map = function (array, iterator) {
-		for (var i=0; i<array.length; i++) {
+		for (var i = 0; i < array.length; i++) {
 			array[i] = iterator(array[i]);
 		}
 		return array;
@@ -123,7 +123,7 @@ var _ = {};
 	// an array of just their ages
 	_.pluck = function (array, propertyName) {
 		var rtn = [];
-		for (var i=0; i<array.length; i++) {
+		for (var i = 0; i < array.length; i++) {
 			rtn.push(array[i][propertyName])
 		}
 		return rtn;
@@ -139,7 +139,7 @@ var _ = {};
 			console.log(methodName);
 			
 			var index = methodName.indexOf('(');
-			methodName = methodName.slice(0,index);
+			methodName = methodName.slice(0, index);
 			console.log(methodName);
 		}
 		for (var i = 0; i < list.length; i++) {
@@ -156,7 +156,7 @@ var _ = {};
 		if (!initialValue) {
 			initialValue = 0;
 		}
-		for (var i=0; i<collection.length; i++) {
+		for (var i = 0; i < collection.length; i++) {
 			initialValue = iterator(initialValue, collection[i]);
 //			console.log (initialValue);
 		}
@@ -225,7 +225,7 @@ var _ = {};
 	// object(s).
 	_.extend = function (obj) {
 		var rtn = {};
-		for (var i=0; i<arguments.length; i++) {
+		for (var i = 0; i < arguments.length; i++) {
 			for (var key in arguments[i]) {
 				rtn[key] = arguments[i][key];
 			}
@@ -237,9 +237,9 @@ var _ = {};
 	// exists in obj
 	_.defaults = function (obj) {
 		var rtn = {};
-		for (var i=0; i<arguments.length; i++) {
+		for (var i = 0; i < arguments.length; i++) {
 			for (var key in arguments[i]) {
-				if (!rtn.hasOwnProperty(key)){
+				if (!rtn.hasOwnProperty(key)) {
 					rtn[key] = arguments[i][key];
 				}
 			}
@@ -259,7 +259,7 @@ var _ = {};
 		var called = false;
 		var rtn = null;
 		
-		return function() {
+		return function () {
 			if (!called) {
 				rtn = func();
 			}
@@ -275,15 +275,13 @@ var _ = {};
 	// already computed the result for the given argument and return that value
 	// instead if possible.
 	_.memoize = function (func) {
-		var called = false;
-		var rtn = null;
+		var rtn = {};
 		
-		return function() {
-			if (!called) {
-				rtn = func();
+		return function (argu) {
+			if (!rtn.hasOwnProperty(argu)) {
+				rtn[argu] = func(argu);
 			}
-			called = true;
-			return rtn;
+			return rtn[argu];
 		};
 	};
 	
@@ -294,14 +292,28 @@ var _ = {};
 	// parameter. For example _.delay(someFunction, 500, 'a', 'b') will
 	// call someFunction('a', 'b') after 500ms
 	_.delay = function (func, wait) {
-		
+		var argu = [];
+		for (var i = 2; i < arguments.length; i++) {
+			argu.push(arguments[i]);
+		}
+		setTimeout(function () {
+			return func.apply(this, argu)
+		}, wait);
 	};
 	
 	
 	
 	// Shuffle an array.
 	_.shuffle = function (array) {
+		var rtn = [];
+		var i =0;
+		var rand = 0;
 		
+		do {
+			rand = Math.floor(Math.random() * array.length);
+			rtn[i] = array.splice(rand,1)
+		} while (array.length > 0);
+		return rtn;
 	};
 	
 	// Sort the object's values by a criterion produced by an iterator.
@@ -309,7 +321,7 @@ var _ = {};
 	// of that string. For example, _.sortBy(people, 'name') should sort
 	// an array of people by their name.
 	_.sortBy = function (collection, iterator) {
-		
+
 	};
 	
 	// Zip together two or more arrays with elements of the same index
